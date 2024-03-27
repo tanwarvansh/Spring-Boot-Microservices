@@ -32,13 +32,13 @@ public class OrderController {
         return new ResponseEntity<>(orderId, HttpStatus.OK);
     }
 
-//    @GetMapping("/{orderId}")
-//    public ResponseEntity<OrderResponse> getOrderDetails(@PathVariable long orderId) {
-//        OrderResponse orderResponse
-//                = orderService.getOrderDetails(orderId);
-//
-//        return new ResponseEntity<>(orderResponse,
-//                HttpStatus.OK);
-//    }
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderResponse> getOrderDetails(@PathVariable long orderId) {
+        OrderResponse orderResponse
+                = orderService.getOrderDetails(orderId);
+
+        return new ResponseEntity<>(orderResponse,
+                HttpStatus.OK);
+    }
 }
 
