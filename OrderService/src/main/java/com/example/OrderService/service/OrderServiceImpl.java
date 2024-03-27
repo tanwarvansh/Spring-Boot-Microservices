@@ -2,14 +2,12 @@ package com.example.OrderService.service;
 
 import com.example.OrderService.entity.Order;
 import com.example.OrderService.model.OrderRequest;
-import com.example.OrderService.model.OrderResponse;
 import com.example.OrderService.repository.OrderRepository;
+import com.example.OrderService.external.client.*;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import java.time.Instant;
 
 @Service
@@ -18,6 +16,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private OrderRepository orderRepository;
+    
+    @Autowired
+    private ProductService productService;
 
     @Override
     public long placeOrder(OrderRequest orderRequest) {
@@ -29,6 +30,7 @@ public class OrderServiceImpl implements OrderService{
 
         log.info("Placing Order Request: {}", orderRequest);
 
+        productService.reduceQuantity(orderRequest.getProductId(), orderRequest.getQuantity());
 
         log.info("Creating Order with Status CREATED");
         Order order = Order.builder()
